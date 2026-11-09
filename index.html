@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101b2c" />
+    <meta
+      name="description"
+      content="Current weather conditions and a five-day forecast for cities around the world."
+    />
+    <title>Weatherly — Your weather, at a glance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Weatherly home">
+          <span class="brand-mark" aria-hidden="true">☼</span>
+          <span>Weatherly</span>
+        </a>
+        <form class="search-form" id="search-form" role="search">
+          <label class="sr-only" for="city-search">Search for a city</label>
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m16 16 4 4"></path>
+          </svg>
+          <input
+            id="city-search"
+            name="city"
+            type="search"
+            placeholder="Search a city..."
+            autocomplete="off"
+            required
+          />
+          <button class="search-submit" type="submit">Search</button>
+        </form>
+        <div class="topbar-actions">
+          <button
+            class="location-button"
+            id="location-button"
+            type="button"
+            aria-label="Use my current location"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path
+                d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.7 2.9-.2-.1a1.7 1.7 0 0 0-1.8.4l-.1.1h-3.4l-.1-.2a1.7 1.7 0 0 0-1.4-1.1 1.7 1.7 0 0 0-1.5.8l-.1.2-3-1.7.1-.2a1.7 1.7 0 0 0-.4-1.8l-.1-.1v-3.4l.2-.1a1.7 1.7 0 0 0 .3-2.9l-.2-.1 1.7-3 .2.1a1.7 1.7 0 0 0 1.8-.4l.1-.1h3.4l.1.2a1.7 1.7 0 0 0 2.9.3l.1-.2 3 1.7-.1.2a1.7 1.7 0 0 0 .4 1.8l.1.1v3.4z"
+              ></path>
+            </svg>
+          </button>
+          <div class="unit-toggle" role="group" aria-label="Temperature units">
+            <button
+              type="button"
+              class="unit-button is-active"
+              data-unit="c"
+              aria-pressed="true"
+            >
+              °C
+            </button>
+            <span aria-hidden="true">|</span>
+            <button
+              type="button"
+              class="unit-button"
+              data-unit="f"
+              aria-pressed="false"
+            >
+              °F
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <p
+        class="status-message"
+        id="status-message"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+      <section class="dashboard" aria-label="Weather dashboard">
+        <div class="main-column">
+          <section class="current-card panel" aria-labelledby="city-name">
+            <div class="current-copy">
+              <p class="eyebrow">
+                <span class="live-dot"></span> CURRENT WEATHER
+              </p>
+              <h1 id="city-name">Loading weather...</h1>
+              <p class="current-date" id="current-date">—</p>
+              <div class="current-condition">
+                <span
+                  class="weather-icon current-icon"
+                  id="current-icon"
+                  aria-hidden="true"
+                  >☁️</span
+                >
+                <div>
+                  <p class="current-temperature" id="current-temperature">
+                    --°
+                  </p>
+                  <p class="condition-label" id="condition-label">
+                    Getting conditions
+                  </p>
+                </div>
+              </div>
+              <p class="feels-like">
+                Feels like <span id="feels-like">--°</span>
+              </p>
+            </div>
+            <div class="current-art" aria-hidden="true">
+              <div class="sun-glow"></div>
+              <span class="art-sun">☀</span>
+              <span class="art-cloud art-cloud-one">☁</span>
+              <span class="art-cloud art-cloud-two">☁</span>
+            </div>
+            <div class="current-footer">
+              <span id="current-high-low"
+                >H: --° <span class="footer-divider">/</span> L: --°</span
+              >
+              <span class="footer-divider">·</span>
+              <span id="current-summary">Live local conditions</span>
+            </div>
+          </section>
+
+          <section class="panel details-panel" aria-labelledby="details-title">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">AT A GLANCE</p>
+                <h2 id="details-title">Today's highlights</h2>
+              </div>
+              <span class="heading-date" id="highlights-date">—</span>
+            </div>
+            <div class="highlights-grid">
+              <article class="highlight-card">
+                <div class="highlight-label">
+                  <span class="detail-icon humidity-icon" aria-hidden="true"
+                    >◉</span
+                  >
+                  <span>Humidity</span>
+                </div>
+                <p class="highlight-value" id="humidity">
+                  --<span class="value-unit">%</span>
+                </p>
+                <p class="highlight-note" id="humidity-note">
+                  Relative humidity
+                </p>
+              </article>
+              <article class="highlight-card">
+                <div class="highlight-label">
+                  <span class="detail-icon wind-icon" aria-hidden="true"
+                    >↗</span
+                  >
+                  <span>Wind speed</span>
+                </div>
+                <p class="highlight-value" id="wind-speed">
+                  --<span class="value-unit"> km/h</span>
+                </p>
+                <p class="highlight-note" id="wind-direction">Direction —</p>
+              </article>
+              <article class="highlight-card">
+                <div class="highlight-label">
+                  <span class="detail-icon rain-icon" aria-hidden="true"
+                    >⌁</span
+                  >
+                  <span>Chance of rain</span>
+                </div>
+                <p class="highlight-value" id="rain-chance">
+                  --<span class="value-unit">%</span>
+                </p>
+                <p class="highlight-note">Over the next few hours</p>
+              </article>
+              <article class="highlight-card">
+                <div class="highlight-label">
+                  <span class="detail-icon sun-icon" aria-hidden="true">☼</span>
+                  <span>Sunrise & sunset</span>
+                </div>
+                <p class="highlight-value sun-times" id="sunrise-sunset">
+                  --:-- <span class="sun-arrow">↗</span> --:--
+                </p>
+                <p class="highlight-note">First light to last light</p>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <aside class="side-column">
+          <section
+            class="panel forecast-panel"
+            aria-labelledby="forecast-title"
+          >
+            <div class="section-heading compact-heading">
+              <div>
+                <p class="eyebrow">THE WEEK AHEAD</p>
+                <h2 id="forecast-title">5-day forecast</h2>
+              </div>
+              <span class="forecast-icon" aria-hidden="true">▥</span>
+            </div>
+            <div
+              class="forecast-list"
+              id="forecast-list"
+              aria-live="polite"
+            ></div>
+          </section>
+
+          <section class="panel hourly-panel" aria-labelledby="hourly-title">
+            <div class="section-heading compact-heading">
+              <div>
+                <p class="eyebrow">THROUGH THE DAY</p>
+                <h2 id="hourly-title">Hourly forecast</h2>
+              </div>
+              <span class="forecast-icon" aria-hidden="true">◷</span>
+            </div>
+            <div class="hourly-list" id="hourly-list" aria-live="polite"></div>
+          </section>
+          <p class="attribution">
+            Weather data by
+            <a href="https://open-meteo.com/" target="_blank" rel="noreferrer"
+              >Open-Meteo</a
+            >
+          </p>
+        </aside>
+      </section>
+      <footer class="page-footer">
+        <span>Weatherly</span>
+        <span>Clear skies ahead, wherever you are.</span>
+      </footer>
+    </main>
+  </body>
+</html>
